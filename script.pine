@@ -1,0 +1,122 @@
+//@version=5
+indicator(title="我的指標", shorttitle="我的指標", overlay=true, timeframe="", timeframe_gaps=true)
+
+// 指標1 EMA7
+len100 = input.int(7, minval=1, title="Length")
+src100 = input(close, title="Source")
+offset100 = input.int(title="Offset", defval=0, minval=-500, maxval=500)
+out100 = ta.ema(src100, len100)
+plot(out100, title="EMA1", color=color.red, offset=offset100)
+
+ma100(source, length, type) =>
+    switch type
+        "SMA" => ta.sma(source, length)
+        "EMA" => ta.ema(source, length)
+        "SMMA (RMA)" => ta.rma(source, length)
+        "WMA" => ta.wma(source, length)
+        "VWMA" => ta.vwma(source, length)
+
+typeMA100 = input.string(title = "Method", defval = "SMA", options=["SMA", "EMA", "SMMA (RMA)", "WMA", "VWMA"], group="Smoothing")
+smoothingLength100 = input.int(title = "Length", defval = 5, minval = 1, maxval = 100, group="Smoothing")
+
+smoothingLine100 = ma100(out100, smoothingLength100, typeMA100)
+plot(smoothingLine100, title="Smoothing Line1", color=#f37f20, offset=offset100, display=display.none)
+
+// 指標2 EMA14
+len101 = input.int(14, minval=1, title="Length")
+src101 = input(close, title="Source")
+offset101 = input.int(title="Offset", defval=0, minval=-500, maxval=500)
+out101 = ta.ema(src101, len101)
+plot(out101, title="EMA2", color=color.orange, offset=offset101)
+
+ma101(source, length, type) =>
+    switch type
+        "SMA" => ta.sma(source, length)
+        "EMA" => ta.ema(source, length)
+        "SMMA (RMA)" => ta.rma(source, length)
+        "WMA" => ta.wma(source, length)
+        "VWMA" => ta.vwma(source, length)
+
+typeMA101 = input.string(title = "Method", defval = "SMA", options=["SMA", "EMA", "SMMA (RMA)", "WMA", "VWMA"], group="Smoothing")
+smoothingLength101 = input.int(title = "Length", defval = 5, minval = 1, maxval = 101, group="Smoothing")
+
+smoothingLine101 = ma101(out101, smoothingLength101, typeMA101)
+plot(smoothingLine101, title="Smoothing Line2", color=#f37f20, offset=offset101, display=display.none)
+
+// 指標3 EMA28
+len102 = input.int(28, minval=1, title="Length")
+src102 = input(close, title="Source")
+offset102 = input.int(title="Offset", defval=0, minval=-500, maxval=500)
+out102 = ta.ema(src102, len102)
+plot(out102, title="EMA3", color=color.yellow, offset=offset102)
+
+ma102(source, length, type) =>
+    switch type
+        "SMA" => ta.sma(source, length)
+        "EMA" => ta.ema(source, length)
+        "SMMA (RMA)" => ta.rma(source, length)
+        "WMA" => ta.wma(source, length)
+        "VWMA" => ta.vwma(source, length)
+
+typeMA102 = input.string(title = "Method", defval = "SMA", options=["SMA", "EMA", "SMMA (RMA)", "WMA", "VWMA"], group="Smoothing")
+smoothingLength102 = input.int(title = "Length", defval = 5, minval = 1, maxval = 102, group="Smoothing")
+
+smoothingLine102 = ma102(out102, smoothingLength102, typeMA102)
+plot(smoothingLine102, title="Smoothing Line3", color=#f37f20, offset=offset102, display=display.none)
+
+// 指標4 EMA84
+len103 = input.int(84, minval=1, title="Length")
+src103 = input(close, title="Source")
+offset103 = input.int(title="Offset", defval=0, minval=-500, maxval=500)
+out103 = ta.ema(src103, len103)
+plot(out103, title="EMA4", color=color.blue, offset=offset103)
+
+ma103(source, length, type) =>
+    switch type
+        "SMA" => ta.sma(source, length)
+        "EMA" => ta.ema(source, length)
+        "SMMA (RMA)" => ta.rma(source, length)
+        "WMA" => ta.wma(source, length)
+        "VWMA" => ta.vwma(source, length)
+
+typeMA103 = input.string(title = "Method", defval = "SMA", options=["SMA", "EMA", "SMMA (RMA)", "WMA", "VWMA"], group="Smoothing")
+smoothingLength103 = input.int(title = "Length", defval = 5, minval = 1, maxval = 103, group="Smoothing")
+
+smoothingLine103 = ma103(out103, smoothingLength103, typeMA103)
+plot(smoothingLine103, title="Smoothing Line4", color=#f37f20, offset=offset103, display=display.none)
+
+// 指標5 SuperTread
+atrPeriod104 = input(10, "ATR Length")
+factor104 = input.float(3.0, "Factor", step = 0.01)
+
+[supertrend, direction] = ta.supertrend(factor104, atrPeriod104)
+
+bodyMiddle104 = plot((open + close) / 2, display=display.none)
+upTrend104 = plot(direction < 0 ? supertrend : na, "Up Trend", color = color.green, style=plot.style_linebr)
+downTrend104 = plot(direction < 0? na : supertrend, "Down Trend", color = color.red, style=plot.style_linebr)
+
+fill(bodyMiddle104, upTrend104, color.new(color.green, 90), fillgaps=false)
+fill(bodyMiddle104, downTrend104, color.new(color.red, 90), fillgaps=false)
+
+// 指標6 SAR
+start105 = input(0.02)
+increment105 = input(0.02)
+maximum105 = input(0.2, "Max Value")
+out = ta.sar(start105, increment105, maximum105)
+plot(out, "ParabolicSAR", style=plot.style_cross, color=#2962FF)
+
+// 指標7 KDJ
+// periodK106 = input.int(14, title="%K Length", minval=1)
+// smoothK106 = input.int(1, title="%K Smoothing", minval=1)
+// periodD106 = input.int(3, title="%D Smoothing", minval=1)
+// k106 = ta.sma(ta.stoch(close, high, low, periodK106), smoothK106)
+// d106 = ta.sma(k106, periodD106)
+// plot(k106, title="%K", color=#2962FF)
+// plot(d106, title="%D", color=#FF6D00)
+// h0106 = hline(80, "Upper Band", color=#787B86)
+// h1106 = hline(20, "Lower Band", color=#787B86)
+// fill(h0106, h1106, color=color.rgb(33, 150, 243, 90), title="Background")
+
+//指標8 尋找高低點
+cond8 = high[10] == ta.highest(high, 21)
+plotchar(cond8, char="*",color=color.yellow , text="H", offset=-10)
