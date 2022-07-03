@@ -1,8 +1,10 @@
 # TradingView Indicators
 there are lots of indicators of TradingView
 
-# Script
+# Screenshot
+![img1](img/1.png)
 
+# Script
 ### Script1.pine
 | Index | Indicator Name | Description |
 | ----- | -------------- | ----------- |
