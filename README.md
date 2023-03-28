@@ -17,6 +17,7 @@ there are lots of indicators of TradingView
 | 7 | KDJ | Stochastic Oscillator |
 | 8 | Highest K | find x days highest Candlestick chart and display H|
 | 9 | Lowest K | find x days lowest Candlestick chart and display L|
+| 10 | BB | Bollinger Band |
 
 ### Script2.pine
 | Index | Indicator Name | Description |
